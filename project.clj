@@ -3,30 +3,21 @@
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"]
                  [reagent "0.5.0"]]
-
-  :profiles {:dev
-             {:dependencies
-              [[figwheel-sidecar "0.5.0-2"]
-               [org.clojure/tools.nrepl "0.2.12"]
-               [com.cemerick/piggieback "0.2.1"]]
-              :source-paths ["src" "dev"]}
-             :repl { :plugins [[cider/cider-nrepl "0.11.0-SNAPSHOT"]] }
-             }
-  
+  :profiles {:repl {:plugins [[cider/cider-nrepl "0.11.0-SNAPSHOT"]]}
+             :dev {:dependencies [[figwheel-sidecar "0.5.0-2"]
+                                  [org.clojure/tools.nrepl "0.2.12"]
+                                  [com.cemerick/piggieback "0.2.1"]]
+                   :source-paths ["src" "dev"]}}
   :plugins [[lein-cljsbuild "1.1.1"]
             [lein-figwheel "0.5.0-2"]]
-  
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
-
   :source-paths ["src"]
-
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
-
+  :figwheel {:css-dirs ["resources/public/css"]}
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src"]
@@ -41,8 +32,4 @@
                 :compiler {:output-to "resources/public/js/compiled/hello_world.js"
                            :main hello-world.core
                            :optimizations :advanced
-                           :pretty-print false}}]}
-
-  :figwheel {             :css-dirs ["resources/public/css"] ;; watch and update CSS
-             ;; :nrepl-port 7888
-             })
+                           :pretty-print false}}]})
